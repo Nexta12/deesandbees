@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { connectDB } from "@/lib/db";
 import User from "@/lib/models/UserModel";
 import { sendOtpEmail } from "@/lib/mailer";
+import { ensureAdminInitialized } from "@/lib/initAdmin";
 
 export async function POST(request) {
   try {
@@ -13,6 +14,7 @@ export async function POST(request) {
     }
 
     await connectDB();
+    await ensureAdminInitialized();
     const user = await User.findOne({ email: email.trim().toLowerCase() });
     if (!user) {
       return NextResponse.json({ message: "No account found with this email." }, { status: 404 });

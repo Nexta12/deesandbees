@@ -7,13 +7,13 @@ export async function GET(request) {
   try {
     const payload = getUserFromRequest(request);
     if (!payload) {
-      return NextResponse.json({ authenticated: false, user: null }, { status: 401 });
+      return NextResponse.json({ authenticated: false, user: null }, { status: 200 });
     }
 
     await connectDB();
     const user = await User.findById(payload.id).select("-password -resetPasswordOTP -resetPasswordExpires");
     if (!user) {
-      return NextResponse.json({ authenticated: false, user: null }, { status: 404 });
+      return NextResponse.json({ authenticated: false, user: null }, { status: 200 });
     }
 
     return NextResponse.json({ authenticated: true, user });

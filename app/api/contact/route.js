@@ -34,14 +34,18 @@ export async function POST(request) {
       address: address ? address.trim() : "",
     });
 
-    // Fire email notification in background (non-blocking for fast response)
-    sendContactNotification({
-      fullName: newContact.fullName,
-      email: newContact.email,
-      phone: newContact.phone,
-      address: newContact.address,
-      message: newContact.message,
-    }).catch((err) => console.error("Email notification error:", err));
+    // Forward message notification via email to info@deesandbeesglobal.com and admins
+    try {
+      await sendContactNotification({
+        fullName: newContact.fullName,
+        email: newContact.email,
+        phone: newContact.phone,
+        address: newContact.address,
+        message: newContact.message,
+      });
+    } catch (err) {
+      console.error("Email notification error:", err);
+    }
 
     return NextResponse.json(
       {

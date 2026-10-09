@@ -218,7 +218,7 @@ export default function HomePage() {
               href="/services"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-bold text-sm bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/20 transition-all"
             >
-              <span>Explore All 6 Study Abroad Services</span>
+              <span>Explore Services</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
